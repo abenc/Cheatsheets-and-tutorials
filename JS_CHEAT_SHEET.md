@@ -81,19 +81,21 @@ function componentToHex(c) {
 ~~~
 ### recursive ls nodejs + ls 
 
-        function _ls_recursive(path_to_retrieve,list_of_files,parent){ //recurif , envisager un ls simple ?
-          //path_to_retrieve = path.join(datastore_path,path_to_retrieve)
-          all_files = ls(path_to_retrieve+"/*")
-          all_files.forEach(function(x){
-            list_of_files.push(statFile(x,parent))
-            if(x.stat.isDirectory() ){
-                if(parent != "self"){
-                  list_of_files[list_of_files.length-1].children = _ls(path.join(x.path,x.name),[],x.name)
-                }
-                else{
-                  _ls(path.join(x.path,x.name),list_of_files,x.name)
-                }
-            }
-          })
-          return list_of_files
+~~~js
+function _ls_recursive(path_to_retrieve,list_of_files,parent){ //recurif , envisager un ls simple ?
+  //path_to_retrieve = path.join(datastore_path,path_to_retrieve)
+  all_files = ls(path_to_retrieve+"/*")
+  all_files.forEach(function(x){
+    list_of_files.push(statFile(x,parent))
+    if(x.stat.isDirectory() ){
+        if(parent != "self"){
+          list_of_files[list_of_files.length-1].children = _ls(path.join(x.path,x.name),[],x.name)
         }
+        else{
+          _ls(path.join(x.path,x.name),list_of_files,x.name)
+        }
+    }
+  })
+  return list_of_files
+}
+~~~
